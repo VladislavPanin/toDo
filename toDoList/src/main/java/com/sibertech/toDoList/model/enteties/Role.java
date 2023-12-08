@@ -1,0 +1,26 @@
+package com.sibertech.toDoList.model.enteties;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+
+
+
+@Entity
+@Table(name="role")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
+public class Role {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="title", unique = true)
+    private String title;
+}

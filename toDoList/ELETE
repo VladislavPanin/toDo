@@ -1,0 +1,6 @@
+HTTP/1.1 405 
+Allow: DELETE
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 26 Nov 2023 13:59:52 GMT
+

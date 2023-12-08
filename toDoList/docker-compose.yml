@@ -1,0 +1,39 @@
+version: "3.2"
+services:
+  toDoList_db:
+    container_name: toDoList_db
+    image: postgres
+    environment:
+      POSTGRES_DB: toDoListApp
+      POSTGRES_USER: toDoList
+      POSTGRES_PASSWORD: toDoList
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres:/datapostgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U toDoList -d toDoListApp"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - postgres
+  toDoListService:
+    container_name: toDoList_app
+    image: todolistapp:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://toDoList_db:5432/toDoListApp
+    ports:
+      - "8080:8080"
+    depends_on:
+      toDoList_db:
+        condition: service_healthy
+    networks:
+      - postgres
+networks:
+  postgres:
+    driver: bridge
+volumes:
+  postgres:
+
